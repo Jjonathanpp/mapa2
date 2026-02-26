@@ -7,7 +7,7 @@
       name="description"
       content="Un regalo de cumpleaños con música, fotos y letras que se descubren al hacer scroll."
     />
-    <title>TITULO</title>
+    <title>Para vos 💖</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -21,16 +21,18 @@
 
     <header class="hero section reveal">
       <p class="eyebrow">Feliz cumpleaños 🎂</p>
-      <h1>Feliz cumpleaños Agustina</h1>
+      <h1>Un pedacito de nosotros</h1>
       <p class="subtitle">
-        Esta página es para vos. Bajá con el dedo.
+        Esta página es para vos. Bajá con el dedo y dejate llevar por la música, las fotos y
+        cada frase.
       </p>
 
       <div class="audio-panel" role="group" aria-label="Controles de música">
         <button id="toggleMusic" class="btn" type="button">▶️ Empezar canción</button>
         <p id="musicStatus" class="music-status">Toque para iniciar la música.</p>
+        <button id="openPlayer" class="btn btn-secondary" type="button">Si no suena, mostrar reproductor</button>
       </div>
-      <audio id="bgMusic" loop preload="auto" src="assets/song.mp3"></audio>
+      <audio id="bgMusic" loop preload="metadata" playsinline src="assets/song.mp3"></audio>
     </header>
 
     <main>
@@ -42,7 +44,7 @@
             loading="lazy"
           />
         </figure>
-        <p class="lyric">“frase”</p>
+        <p class="lyric">“Desde que llegaste, todo suena más bonito...”</p>
       </section>
 
       <section class="memory section reveal">
@@ -53,7 +55,7 @@
             loading="lazy"
           />
         </figure>
-        <p class="lyric">“frase”</p>
+        <p class="lyric">“En cada paso, elegirme fue encontrarte.”</p>
       </section>
 
       <section class="memory section reveal">
@@ -64,7 +66,7 @@
             loading="lazy"
           />
         </figure>
-        <p class="lyric">“frase”</p>
+        <p class="lyric">“Si miro al cielo, siempre hay algo tuyo en mi paz.”</p>
       </section>
 
       <section class="memory section reveal">
@@ -75,20 +77,20 @@
             loading="lazy"
           />
         </figure>
-        <p class="lyric">“frase”</p>
+        <p class="lyric">“Que este cumpleaños te abrace como vos abrazás mi vida.”</p>
       </section>
 
       <section class="section ending reveal">
-        <h2>Te quiero mucho</h2>
+        <h2>Te quiero muchísimo 💘</h2>
         <p>
-          Gracias por cada risa, cada charla y cada recuerdo. Ojalá este regalo te saque una
-          sonrisa.
+          Gracias por cada risa, cada charla y cada recuerdo. Ojalá este regalito te saque una
+          sonrisa enorme.
         </p>
       </section>
     </main>
 
     <footer class="footer">
-      <p>Hecho por mi</p>
+      <p>Hecho con amor ✨</p>
     </footer>
 
     <script src="script.js"></script>
