@@ -3,79 +3,424 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta
-      name="description"
-      content="Un regalo de cumpleaños con música, fotos y letras que se descubren al hacer scroll."
-    />
-    <title>Para vos 💖</title>
+    <title>Feliz cumple Agustina 🎉</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Parisienne&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --pink:   #ff6b9d;
+        --yellow: #ffd166;
+        --teal:   #06d6a0;
+        --purple: #9b5de5;
+        --orange: #ff9f43;
+        --blue:   #48cae4;
+        --bg:     #fff8f0;
+        --dark:   #2d2d2d;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background: var(--bg);
+        font-family: 'Nunito', sans-serif;
+        color: var(--dark);
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image:
+          radial-gradient(circle, var(--pink) 2px, transparent 2px),
+          radial-gradient(circle, var(--yellow) 2px, transparent 2px),
+          radial-gradient(circle, var(--teal) 2px, transparent 2px),
+          radial-gradient(circle, var(--purple) 2px, transparent 2px);
+        background-size: 120px 120px, 90px 90px, 100px 100px, 80px 80px;
+        background-position: 0 0, 45px 45px, 20px 70px, 60px 10px;
+        opacity: 0.07;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* ── HERO ── */
+      .hero {
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 3rem 1.5rem 2rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-badge {
+        background: var(--yellow);
+        color: var(--dark);
+        font-size: 0.75rem;
+        font-weight: 900;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        padding: 0.4rem 1.2rem;
+        border-radius: 999px;
+        margin-bottom: 1.5rem;
+        animation: pop 0.6s cubic-bezier(.36,2,.6,1) 0.3s both;
+      }
+
+      .hero-title {
+        font-family: 'Pacifico', cursive;
+        font-size: clamp(3rem, 18vw, 6.5rem);
+        line-height: 1.1;
+        margin-bottom: 0.5rem;
+        animation: pop 0.6s cubic-bezier(.36,2,.6,1) 0.5s both;
+      }
+
+      .hero-title .line1 { color: var(--pink); }
+      .hero-title .line2 { color: var(--purple); }
+      .hero-title .line3 { color: var(--orange); }
+
+      .hero-sub {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #888;
+        margin: 1rem 0 2rem;
+        animation: pop 0.6s cubic-bezier(.36,2,.6,1) 0.7s both;
+      }
+
+      .music-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: white;
+        border: 2px solid var(--purple);
+        border-radius: 999px;
+        padding: 0.5rem 1.2rem;
+        font-family: 'Nunito', sans-serif;
+        font-weight: 700;
+        font-size: 0.8rem;
+        color: var(--purple);
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s, transform 0.1s;
+        animation: pop 0.6s cubic-bezier(.36,2,.6,1) 0.9s both;
+      }
+      .music-pill:hover { background: var(--purple); color: white; }
+      .music-pill:active { transform: scale(0.95); }
+
+      .music-note { display: inline-flex; gap: 2px; align-items: flex-end; height: 14px; }
+      .music-note span {
+        width: 3px; border-radius: 2px; background: currentColor;
+        animation: wavebar 1s ease-in-out infinite;
+      }
+      .music-note span:nth-child(1) { height: 5px; animation-delay: 0s; }
+      .music-note span:nth-child(2) { height: 10px; animation-delay: 0.15s; }
+      .music-note span:nth-child(3) { height: 7px; animation-delay: 0.3s; }
+      .music-note span:nth-child(4) { height: 12px; animation-delay: 0.1s; }
+      .music-note span.paused { animation-play-state: paused; }
+      @keyframes wavebar {
+        0%, 100% { transform: scaleY(1); }
+        50% { transform: scaleY(0.3); }
+      }
+
+      .scroll-hint {
+        margin-top: 2.5rem;
+        display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+        animation: fade-in 1s ease 1.5s both;
+      }
+      .scroll-hint p { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #bbb; }
+      .scroll-dot { width: 6px; height: 6px; background: var(--pink); border-radius: 50%; animation: bdot 1.4s ease-in-out infinite; }
+      @keyframes bdot { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+
+      /* ── REVEAL ── */
+      .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+      .reveal.visible { opacity: 1; transform: translateY(0); }
+
+      /* ── PHOTO SECTION ── */
+      .photo-section { position: relative; z-index: 1; padding: 1rem 1rem 0; }
+
+      .photo-frame {
+        border-radius: 24px;
+        overflow: hidden;
+        border: 4px solid var(--pink);
+        box-shadow: 0 20px 60px rgba(255,107,157,0.2);
+      }
+      .photo-frame img {
+        width: 100%;
+        aspect-ratio: 4/5;
+        object-fit: cover;
+        display: block;
+      }
+
+      .accent-pink   .photo-frame { border-color: var(--pink);   box-shadow: 0 20px 50px rgba(255,107,157,0.22); }
+      .accent-yellow .photo-frame { border-color: var(--yellow);  box-shadow: 0 20px 50px rgba(255,209,102,0.25); }
+      .accent-teal   .photo-frame { border-color: var(--teal);    box-shadow: 0 20px 50px rgba(6,214,160,0.22); }
+      .accent-purple .photo-frame { border-color: var(--purple);  box-shadow: 0 20px 50px rgba(155,93,229,0.22); }
+      .accent-orange .photo-frame { border-color: var(--orange);  box-shadow: 0 20px 50px rgba(255,159,67,0.22); }
+      .accent-blue   .photo-frame { border-color: var(--blue);    box-shadow: 0 20px 50px rgba(72,202,228,0.22); }
+
+      .caption {
+        margin: 1rem 0 2.5rem;
+        display: flex; align-items: flex-start; gap: 0.7rem;
+        padding: 0 0.5rem;
+      }
+      .caption-emoji { font-size: 1.6rem; flex-shrink: 0; margin-top: 0.1rem; }
+      .caption-text { font-size: 1.05rem; font-weight: 700; line-height: 1.5; color: var(--dark); }
+      .caption-text small { display: block; font-weight: 600; font-size: 0.75rem; color: #aaa; margin-top: 0.15rem; font-style: italic; }
+
+      /* ── INTERLUDE ── */
+      .interlude { z-index: 1; position: relative; text-align: center; padding: 3rem 2rem; }
+      .interlude-text { font-family: 'Pacifico', cursive; font-size: clamp(1.8rem, 9vw, 3.2rem); line-height: 1.35; }
+      .c1{color:var(--pink)} .c2{color:var(--purple)} .c3{color:var(--orange)} .c4{color:var(--teal)}
+
+      /* ── COLLAGE 2x2 ── */
+      .collage-row {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;
+        padding: 0 1rem 2.5rem; z-index: 1; position: relative;
+      }
+      .collage-item { border-radius: 18px; overflow: hidden; border: 3px solid var(--yellow); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+      .collage-item:nth-child(even) { border-color: var(--pink); margin-top: 1.2rem; }
+      .collage-item img { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; }
+
+      /* ── ENDING ── */
+      .ending { z-index: 1; position: relative; text-align: center; padding: 3rem 2rem 1.5rem; }
+      .ending-emoji-row { font-size: 2.2rem; margin-bottom: 1.2rem; display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; }
+      .ending-emoji-row span { display: inline-block; animation: wiggle 2s ease-in-out infinite; }
+      .ending-emoji-row span:nth-child(2){animation-delay:.2s}
+      .ending-emoji-row span:nth-child(3){animation-delay:.4s}
+      .ending-emoji-row span:nth-child(4){animation-delay:.6s}
+      .ending-emoji-row span:nth-child(5){animation-delay:.8s}
+      @keyframes wiggle {
+        0%,100%{transform:rotate(0) scale(1)}
+        25%{transform:rotate(-8deg) scale(1.1)}
+        75%{transform:rotate(8deg) scale(1.1)}
+      }
+
+      .ending-title {
+        font-family: 'Pacifico', cursive;
+        font-size: clamp(2.2rem, 12vw, 4.5rem);
+        line-height: 1.1; margin-bottom: 1.2rem;
+        background: linear-gradient(135deg, var(--pink), var(--purple), var(--orange));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      }
+      .ending-msg { font-size: 1.05rem; font-weight: 600; line-height: 1.75; color: #666; max-width: 30ch; margin: 0 auto 1.5rem; }
+      .ending-msg strong { color: var(--pink); }
+      .song-credit { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #ccc; margin-top: 0.5rem; }
+
+      .footer { text-align: center; padding: 2rem 1rem; font-size: 0.72rem; font-weight: 700; color: #ccc; letter-spacing: 0.1em; text-transform: uppercase; position: relative; z-index: 1; }
+
+      @keyframes pop { from{opacity:0;transform:scale(0.8)} to{opacity:1;transform:scale(1)} }
+      @keyframes fade-in { from{opacity:0} to{opacity:1} }
+      audio { display: none; }
+    </style>
   </head>
   <body>
-    <div class="bg-glow" aria-hidden="true"></div>
 
-    <header class="hero section reveal">
-      <p class="eyebrow">Feliz cumpleaños 🎂</p>
-      <h1>Un pedacito de nosotros</h1>
-      <p class="subtitle">
-        Esta página es para vos. Bajá con el dedo y dejate llevar por la música, las fotos y
-        cada frase.
-      </p>
+    <audio id="bgMusic" loop preload="metadata" playsinline src="assets/song.mp3"></audio>
 
-      <div class="audio-panel" role="group" aria-label="Controles de música">
-        <button id="toggleMusic" class="btn" type="button">▶️ Empezar canción</button>
-        <p id="musicStatus" class="music-status">Toque para iniciar la música.</p>
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-badge">🎂 Cumpleaños especial</div>
+      <h1 class="hero-title">
+        <span class="line1">Feliz</span><br>
+        <span class="line2">cumple</span><br>
+        <span class="line3">Agustina!</span>
+      </h1>
+      <p class="hero-sub">Bajá y acordate de todo lo que vivimos juntas 💛</p>
+
+      <button class="music-pill" id="toggleMusic" type="button">
+        <div class="music-note">
+          <span class="paused"></span><span class="paused"></span>
+          <span class="paused"></span><span class="paused"></span>
+        </div>
+        <span id="btnLabel">Poner música</span>
+      </button>
+
+      <div class="scroll-hint">
+        <p>Deslizá</p>
+        <div class="scroll-dot"></div>
       </div>
-      <audio id="bgMusic" loop preload="metadata" playsinline src="assets/song.mp3"></audio>
     </header>
 
     <main>
-      <section class="memory section reveal">
-        <p class="lyric lyric-focus">“Desde que llegaste, todo suena más bonito...”</p>
-        <figure class="photo-card photo-secondary">
-          <img src="assets/photo-1.svg" alt="Recuerdo de los dos sonriendo" loading="lazy" />
-        </figure>
-      </section>
 
-      <section class="memory section reveal">
-        <p class="lyric lyric-focus">“En cada paso, elegirme fue encontrarte.”</p>
-        <figure class="photo-card photo-secondary">
-          <img src="assets/photo-2.svg" alt="Foto abrazados en un paseo" loading="lazy" />
-        </figure>
-      </section>
+      <!-- FOTO 1 -->
+      <div class="photo-section accent-pink reveal">
+        <div class="photo-frame">
+          <img src="assets/photo-1.jpg" alt="Foto 1" loading="lazy" />
+        </div>
+        <div class="caption">
+          <span class="caption-emoji">🌸</span>
+          <div class="caption-text">
+            Acá va tu frase para esta foto
+            <small>Editá en index.html → caption-text</small>
+          </div>
+        </div>
+      </div>
 
-      <section class="memory section reveal">
-        <p class="lyric lyric-focus">“Si miro al cielo, siempre hay algo tuyo en mi paz.”</p>
-        <figure class="photo-card photo-secondary">
-          <img src="assets/photo-3.svg" alt="Atardecer compartido juntos" loading="lazy" />
-        </figure>
-      </section>
+      <!-- FOTO 2 -->
+      <div class="photo-section accent-yellow reveal">
+        <div class="photo-frame">
+          <img src="assets/photo-2.jpg" alt="Foto 2" loading="lazy" />
+        </div>
+        <div class="caption">
+          <span class="caption-emoji">✨</span>
+          <div class="caption-text">
+            Acá va tu frase para esta foto
+            <small>Editá en index.html → caption-text</small>
+          </div>
+        </div>
+      </div>
 
-      <section class="memory section reveal">
-        <p class="lyric lyric-focus">“Que este cumpleaños te abrace como vos abrazás mi vida.”</p>
-        <figure class="photo-card photo-secondary">
-          <img src="assets/photo-4.svg" alt="Celebrando un momento especial" loading="lazy" />
-        </figure>
-      </section>
-
-      <section class="section ending reveal">
-        <h2>Te quiero muchísimo 💘</h2>
-        <p>
-          Gracias por cada risa, cada charla y cada recuerdo. Ojalá este regalito te saque una
-          sonrisa enorme.
+      <!-- INTERLUDE 1 -->
+      <div class="interlude reveal">
+        <p class="interlude-text">
+          <span class="c1">Nunca quise</span><br>
+          <span class="c2">tanto a nadie</span><br>
+          <span class="c3">como a vos</span> <span class="c4">💫</span>
         </p>
+      </div>
+
+      <!-- FOTO 3 -->
+      <div class="photo-section accent-teal reveal">
+        <div class="photo-frame">
+          <img src="assets/photo-3.jpg" alt="Foto 3" loading="lazy" />
+        </div>
+        <div class="caption">
+          <span class="caption-emoji">🌊</span>
+          <div class="caption-text">
+            Acá va tu frase para esta foto
+            <small>Editá en index.html → caption-text</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOTO 4 -->
+      <div class="photo-section accent-purple reveal">
+        <div class="photo-frame">
+          <img src="assets/photo-4.jpg" alt="Foto 4" loading="lazy" />
+        </div>
+        <div class="caption">
+          <span class="caption-emoji">💜</span>
+          <div class="caption-text">
+            Acá va tu frase para esta foto
+            <small>Editá en index.html → caption-text</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLLAGE fotos 5 y 6 -->
+      <div class="collage-row reveal">
+        <div class="collage-item"><img src="assets/photo-5.jpg" alt="Foto 5" loading="lazy" /></div>
+        <div class="collage-item"><img src="assets/photo-6.jpg" alt="Foto 6" loading="lazy" /></div>
+      </div>
+
+      <!-- INTERLUDE 2 -->
+      <div class="interlude reveal">
+        <p class="interlude-text">
+          <span class="c4">Siempre</span><br>
+          <span class="c1">una marca tuya</span><br>
+          <span class="c2">en mi corazón</span> <span class="c3">🧡</span>
+        </p>
+      </div>
+
+      <!-- FOTO 7 -->
+      <div class="photo-section accent-orange reveal">
+        <div class="photo-frame">
+          <img src="assets/photo-7.jpg" alt="Foto 7" loading="lazy" />
+        </div>
+        <div class="caption">
+          <span class="caption-emoji">🍊</span>
+          <div class="caption-text">
+            Acá va tu frase para esta foto
+            <small>Editá en index.html → caption-text</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOTO 8 -->
+      <div class="photo-section accent-blue reveal">
+        <div class="photo-frame">
+          <img src="assets/photo-8.jpg" alt="Foto 8" loading="lazy" />
+        </div>
+        <div class="caption">
+          <span class="caption-emoji">💙</span>
+          <div class="caption-text">
+            Acá va tu frase para esta foto
+            <small>Editá en index.html → caption-text</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTERLUDE 3 -->
+      <div class="interlude reveal">
+        <p class="interlude-text">
+          <span class="c2">La vida</span><br>
+          <span class="c1">te hace más</span><br>
+          <span class="c3">guerrera</span> <span class="c4">🌟</span>
+        </p>
+      </div>
+
+      <!-- FOTO 9 -->
+      <div class="photo-section accent-pink reveal">
+        <div class="photo-frame">
+          <img src="assets/photo-9.jpg" alt="Foto 9" loading="lazy" />
+        </div>
+        <div class="caption">
+          <span class="caption-emoji">🎉</span>
+          <div class="caption-text">
+            Acá va tu frase para esta foto
+            <small>Editá en index.html → caption-text</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- ENDING -->
+      <section class="ending reveal">
+        <div class="ending-emoji-row">
+          <span>🎂</span><span>🎈</span><span>💛</span><span>✨</span><span>🎊</span>
+        </div>
+        <h2 class="ending-title">Te quiero<br>un montón<br>Agus</h2>
+        <p class="ending-msg">
+          Gracias por ser <strong>exactamente quien sos</strong>. 
+          Ojalá este año te traiga todo lo que merecés y mucho más. Feliz cumple 🎂
+        </p>
+        <p class="song-credit">🎵 Nunca quise — Intoxicados</p>
       </section>
+
     </main>
 
-    <footer class="footer">
-      <p>Hecho con amor ✨</p>
-    </footer>
+    <footer class="footer">Hecho con amor ✨</footer>
 
-    <script src="script.js"></script>
+    <script>
+      const audio = document.getElementById('bgMusic');
+      const btn = document.getElementById('toggleMusic');
+      const label = document.getElementById('btnLabel');
+      const bars = document.querySelectorAll('.music-note span');
+      let playing = false;
+
+      function setWave(on) { bars.forEach(b => b.classList.toggle('paused', !on)); }
+
+      btn.addEventListener('click', async () => {
+        if (playing) {
+          audio.pause(); playing = false;
+          label.textContent = 'Poner música'; setWave(false);
+        } else {
+          try {
+            await audio.play(); playing = true;
+            label.textContent = 'Pausar música'; setWave(true);
+          } catch { label.textContent = 'Tocá otra vez'; }
+        }
+      });
+
+      audio.addEventListener('error', () => { label.textContent = 'Cargá assets/song.mp3'; });
+
+      const obs = new IntersectionObserver(
+        es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+        { threshold: 0.1 }
+      );
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    </script>
   </body>
 </html>
