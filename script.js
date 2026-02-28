@@ -1,7 +1,6 @@
 const audio = document.getElementById('bgMusic');
 const toggleBtn = document.getElementById('toggleMusic');
 const statusLabel = document.getElementById('musicStatus');
-const openPlayerBtn = document.getElementById('openPlayer');
 
 let isPlaying = false;
 
@@ -61,12 +60,6 @@ async function toggleMusic() {
 }
 
 toggleBtn?.addEventListener('click', toggleMusic);
-
-openPlayerBtn?.addEventListener('click', () => {
-  audio?.setAttribute('controls', '');
-  openPlayerBtn.hidden = true;
-  setStatus('Activé los controles manuales. Probá reproducir desde el reproductor.');
-});
 
 audio?.addEventListener('play', () => {
   isPlaying = true;
